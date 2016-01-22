@@ -1,5 +1,5 @@
 //
-//  SavePositionViewController.swift
+//  ViewPositionViewController.swift
 //  EasyPark
 //
 //  Created by INFTEL 13 on 22/1/16.
@@ -11,21 +11,21 @@ import MapKit
 import CoreLocation
 
 
-class SavePositionViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
-    
+class ViewPositionViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate  {
     
     // MARK: Properties
-    
+
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var infoDirection: UILabel!
     @IBOutlet weak var infoCity: UILabel!
     @IBOutlet weak var infoCountry: UILabel!
- 
+    @IBOutlet weak var infoDate: UILabel!
     
     let locationManager = CLLocationManager()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.infoDirection.numberOfLines = 3
         
         self.locationManager.delegate = self
@@ -50,6 +50,12 @@ class SavePositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
+        let date = NSDate()
+        let formater = NSDateFormatter()
+        formater.dateFormat = "dd-MM-yyyy HH:mm:ss"
+        formater.stringFromDate(date)
+        infoDate.text = "Fecha: " + formater.stringFromDate(date)
+        
         let location = locations.last
         
         let center = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
@@ -66,8 +72,6 @@ class SavePositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
             
             var placeMark: CLPlacemark!
             placeMark = placemarks?[0]
-            
-            print(placeMark.addressDictionary)
             
             if let letDirection = placeMark.addressDictionary!["Thoroughfare"] as? String{
                 self.infoDirection.text = "Dirección: "+letDirection
@@ -95,14 +99,15 @@ class SavePositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
         print("Errors: " + error.localizedDescription)
     }
     
-
-    
     // MARK: - Navigation
     
-    @IBAction func cancel(sender: UIBarButtonItem) {
+    @IBAction func back(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
     }
+
     /*
+    
+
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
