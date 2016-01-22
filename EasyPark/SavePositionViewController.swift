@@ -26,6 +26,7 @@ class SavePositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.infoDirection.numberOfLines = 3
         
         self.locationManager.delegate = self
         
@@ -68,15 +69,15 @@ class SavePositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
             print(placeMark.addressDictionary)
             
             if let letDirection = placeMark.addressDictionary!["Thoroughfare"] as? String{
-                self.infoDirection.text?.appendContentsOf(letDirection)
+                self.infoDirection.text = "Dirección: "+letDirection
             }
             if let letCity = placeMark.addressDictionary!["City"] as? String{
                 if let letZip = placeMark.addressDictionary!["ZIP"] as? String{
-                    self.infoCity.text?.appendContentsOf(letCity+", "+letZip)
+                    self.infoCity.text = "Ciudad: " + letCity+", "+letZip
                 }
             }
             if let letCountry = placeMark.addressDictionary!["Country"] as? String{
-                self.infoCountry.text?.appendContentsOf(letCountry)
+                self.infoCountry.text = "País: " + letCountry
             }
             
             
