@@ -31,6 +31,9 @@
                                         <state key="normal" title="Guardar Posicion">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="43m-Ok-Qlr" kind="show" id="9Si-fw-rhc"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="254" placeholderIntrinsicHeight="30" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zWK-7n-1WX">
                                         <rect key="frame" x="0.0" y="370" width="560" height="30"/>
@@ -72,7 +75,80 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="305" y="418"/>
+            <point key="canvasLocation" x="578" y="418"/>
+        </scene>
+        <!--Guardar Posicion-->
+        <scene sceneID="CTh-Hr-HAS">
+            <objects>
+                <viewController id="xKZ-SW-yoP" customClass="SavePositionViewController" customModule="EasyPark" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Nic-te-tER"/>
+                        <viewControllerLayoutGuide type="bottom" id="XSG-i2-nIN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2gF-lN-x74">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ciudad: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PbO-30-H18">
+                                <rect key="frame" x="20" y="392" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dirección: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kyc-57-UVl">
+                                <rect key="frame" x="20" y="363" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hzj-8k-W5F">
+                                <rect key="frame" x="20" y="72" width="560" height="233"/>
+                            </mapView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="País: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XwY-My-at0">
+                                <rect key="frame" x="20" y="421" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Guardar Posicion" id="4Og-rO-Q2l">
+                        <barButtonItem key="leftBarButtonItem" title="Cancelar" id="Adx-rq-c9o">
+                            <connections>
+                                <action selector="cancel:" destination="xKZ-SW-yoP" id="7ex-GS-Xud"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Guardar" id="57r-g6-IAn"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="infoCity" destination="PbO-30-H18" id="C6z-cy-B7X"/>
+                        <outlet property="infoCountry" destination="XwY-My-at0" id="97q-aN-gHe"/>
+                        <outlet property="infoDirection" destination="Kyc-57-UVl" id="EDg-NF-lK9"/>
+                        <outlet property="mapView" destination="hzj-8k-W5F" id="EIz-qN-Y48"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YPe-ph-L7F" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2327" y="418"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="alx-gl-Cjb">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="43m-Ok-Qlr" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZIh-aq-BnB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="xKZ-SW-yoP" kind="relationship" relationship="rootViewController" id="lIF-SR-ycA"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ugz-Em-lZs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1515" y="418"/>
         </scene>
     </scenes>
     <resources>

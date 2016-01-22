@@ -14,6 +14,7 @@
 		4CAEEC341C5225BD008BEA8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CAEEC331C5225BD008BEA8A /* Assets.xcassets */; };
 		4CAEEC371C5225BD008BEA8A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CAEEC351C5225BD008BEA8A /* LaunchScreen.storyboard */; };
 		4CAEEC421C5225BD008BEA8A /* EasyParkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAEEC411C5225BD008BEA8A /* EasyParkTests.swift */; };
+		4CAEEC4D1C523EC7008BEA8A /* SavePositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAEEC4C1C523EC7008BEA8A /* SavePositionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		4CAEEC3D1C5225BD008BEA8A /* EasyParkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EasyParkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CAEEC411C5225BD008BEA8A /* EasyParkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyParkTests.swift; sourceTree = "<group>"; };
 		4CAEEC431C5225BD008BEA8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4CAEEC4C1C523EC7008BEA8A /* SavePositionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavePositionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 			children = (
 				4CAEEC291C5225BD008BEA8A /* AppDelegate.swift */,
 				4CAEEC2B1C5225BD008BEA8A /* ViewController.swift */,
+				4CAEEC4C1C523EC7008BEA8A /* SavePositionViewController.swift */,
 				4CAEEC2D1C5225BD008BEA8A /* Main.storyboard */,
 				4CAEEC331C5225BD008BEA8A /* Assets.xcassets */,
 				4CAEEC351C5225BD008BEA8A /* LaunchScreen.storyboard */,
@@ -200,6 +203,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CAEEC4D1C523EC7008BEA8A /* SavePositionViewController.swift in Sources */,
 				4CAEEC2C1C5225BD008BEA8A /* ViewController.swift in Sources */,
 				4CAEEC2A1C5225BD008BEA8A /* AppDelegate.swift in Sources */,
 				4CAEEC321C5225BD008BEA8A /* EasyPark.xcdatamodeld in Sources */,
