@@ -12,6 +12,7 @@ class ParkTableViewController: UITableViewController {
 
     // MARK: Properties
 
+    var parkZones = [ParkZone]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +22,7 @@ class ParkTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        loadSamplePositions()
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,23 +34,28 @@ class ParkTableViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return parkZones.count
     }
 
-    /*
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cellIdentifier = "ParkTableViewCell"
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ParkTableViewCell
 
-        // Configure the cell...
+        let parkZone = parkZones[indexPath.row]
+        
+        cell.floorLabel.text = parkZone.floor
+        cell.sectionLabel.text = parkZone.section
+        cell.numberLabel.text = parkZone.number
+        cell.photo.image = parkZone.photo
 
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -84,6 +91,16 @@ class ParkTableViewController: UITableViewController {
         return true
     }
     */
+    
+    func loadSamplePositions() {
+        let meal1 = ParkZone(floor: "1", section: "3", number: "9", photo: "carrefour")
+        
+        let meal2 = ParkZone(floor: "3", section: "3", number: "10", photo: "corte")
+        
+        
+        
+        parkZones += [meal1, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2]
+    }
 
     
     // MARK: - Navigation

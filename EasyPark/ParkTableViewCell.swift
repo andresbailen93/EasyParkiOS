@@ -15,6 +15,7 @@ class ParkTableViewCell: UITableViewCell {
     @IBOutlet weak var floorLabel: UILabel!
     @IBOutlet weak var sectionLabel: UILabel!
     @IBOutlet weak var numberLabel: UILabel!
+    @IBOutlet weak var photo: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

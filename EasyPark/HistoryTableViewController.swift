@@ -16,8 +16,11 @@ class HistoryTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        navigationItem.rightBarButtonItem = editButtonItem()
+        
         loadSamplePositions()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,25 +58,23 @@ class HistoryTableViewController: UITableViewController {
     }
     
 
-    /*
+    
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-    */
 
-    /*
+
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            // Delete the row from the data source
+            positions.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }
     }
-    */
 
     /*
     // Override to support rearranging the table view.
@@ -96,13 +97,18 @@ class HistoryTableViewController: UITableViewController {
 
         let meal2 = Position(latitude: 36.7145, longitude: -4.4795, date: date, direction: "Calle Juanje", city: "Tánger", country: "España")
         
-        positions += [meal1, meal2]
+        
+        
+        positions += [meal1, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2]
     }
     
     // MARK: - Navigation
     @IBAction func back(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
     }
+ 
+    
+    
     /*
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
