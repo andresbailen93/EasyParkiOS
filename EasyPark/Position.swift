@@ -30,4 +30,6 @@ class Position{
         self.country = country
         
     }
+    
+    //init() {}
 }

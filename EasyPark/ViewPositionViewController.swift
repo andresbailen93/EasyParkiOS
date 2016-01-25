@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import CoreData
 
 
 class ViewPositionViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate  {
@@ -21,10 +22,71 @@ class ViewPositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
     @IBOutlet weak var infoCountry: UILabel!
     @IBOutlet weak var infoDate: UILabel!
     
+    var position: NSManagedObject?
+    
     let locationManager = CLLocationManager()
+    
+    let longitude: CLLocationDegrees = 0.0
+    let latitude: CLLocationDegrees = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let position = position {
+            infoDirection.text = "Dirección: " + (position.valueForKey("direction") as! String)
+            infoCity.text = "Ciudad: " + (position.valueForKey("city") as! String)
+            infoCountry.text = "País: " + (position.valueForKey("country") as! String)
+            
+            
+            let formater = NSDateFormatter()
+            formater.dateFormat = "dd-MM-yyyy HH:mm:ss"
+            let myDate = "Fecha: " + formater.stringFromDate(position.valueForKey("date") as! NSDate)
+            infoDate.text = myDate
+            self.locationManager.startUpdatingLocation()
+       
+        }else{
+            var positions = [NSManagedObject]()
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            let managedContext = appDelegate.managedObjectContext
+            
+            let fetchRequest = NSFetchRequest(entityName: "Position")
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+            fetchRequest.fetchLimit = 1
+            
+            do {
+                let results = try managedContext.executeFetchRequest(fetchRequest)
+                positions = results as! [NSManagedObject]
+                if(positions.count == 0){
+                    
+                    infoDirection.text = "Dirección: "
+                    infoCity.text = "Ciudad: "
+                    infoCountry.text = "País: "
+                    infoDate.text = "Fecha: "
+                    
+                    
+                }else{
+                
+                position = positions[0]
+                
+                infoDirection.text = "Dirección: " + (position!.valueForKey("direction") as! String)
+                infoCity.text = "Ciudad: " + (position!.valueForKey("city") as! String)
+                infoCountry.text = "País: " + (position!.valueForKey("country") as! String)
+                
+                
+                let formater = NSDateFormatter()
+                formater.dateFormat = "dd-MM-yyyy HH:mm:ss"
+                let myDate = "Fecha: " + formater.stringFromDate(position!.valueForKey("date") as! NSDate)
+                infoDate.text = myDate
+                self.locationManager.startUpdatingLocation()
+                
+                }
+                
+            } catch let error as NSError {
+                print("No se pudo encontrar nada \(error), \(error.userInfo)")
+            }
+            
+            
+        }
         
         self.infoDirection.numberOfLines = 3
         
@@ -33,8 +95,6 @@ class ViewPositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         self.locationManager.requestWhenInUseAuthorization()
-        
-        self.locationManager.startUpdatingLocation()
         
         self.mapView.showsUserLocation = true
 
@@ -45,54 +105,27 @@ class ViewPositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
     
     // MARK: -Location Delegate Methods
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        let date = NSDate()
-        let formater = NSDateFormatter()
-        formater.dateFormat = "dd-MM-yyyy HH:mm:ss"
-        formater.stringFromDate(date)
-        infoDate.text = "Fecha: " + formater.stringFromDate(date)
+        let point = MKPointAnnotation()
         
-        let location = locations.last
-        
-        let center = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
+        point.coordinate.latitude = position!.valueForKey("latitude") as! CLLocationDegrees
+        point.coordinate.longitude = position!.valueForKey("longitude") as! CLLocationDegrees
+ 
+        let center = CLLocationCoordinate2D(latitude: position!.valueForKey("latitude") as! CLLocationDegrees, longitude: position!.valueForKey("longitude") as! CLLocationDegrees)
         
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        
+        self.mapView.addAnnotation(point)
         
         self.mapView.setRegion(region, animated: true)
         
         self.locationManager.stopUpdatingLocation()
-        
-        let geoCoder = CLGeocoder()
-        let locationAddress = CLLocation(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
-        geoCoder.reverseGeocodeLocation(locationAddress, completionHandler: { (placemarks, error) -> Void in
-            
-            var placeMark: CLPlacemark!
-            placeMark = placemarks?[0]
-            
-            if let letDirection = placeMark.addressDictionary!["Thoroughfare"] as? String{
-                self.infoDirection.text = "Dirección: "+letDirection
-            }
-            if let letCity = placeMark.addressDictionary!["City"] as? String{
-                if let letZip = placeMark.addressDictionary!["ZIP"] as? String{
-                    self.infoCity.text = "Ciudad: " + letCity+", "+letZip
-                }
-            }
-            if let letCountry = placeMark.addressDictionary!["Country"] as? String{
-                self.infoCountry.text = "País: " + letCountry
-            }
-            
-            
-            
-            
-            
-        })
-        
-        
-        
+ 
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError){
@@ -102,17 +135,23 @@ class ViewPositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
     // MARK: - Navigation
     
     @IBAction func back(sender: UIBarButtonItem) {
+        infoDirection.text = "Dirección: "
+        infoCity.text = "Ciudad: "
+        infoCountry.text = "País: "
+        infoDate.text = "Fecha: "
         dismissViewControllerAnimated(true, completion: nil)
     }
 
-    /*
+    
     
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+    
     }
-    */
+    
 
 }

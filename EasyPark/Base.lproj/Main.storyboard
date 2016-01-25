@@ -42,7 +42,7 @@
                                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="Ver Posición"/>
                                         <connections>
-                                            <segue destination="bcu-QS-vpo" kind="show" id="m4Y-3T-tgW"/>
+                                            <segue destination="bcu-QS-vpo" kind="show" identifier="viewPosition" id="m4Y-3T-tgW"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="254" placeholderIntrinsicHeight="30" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dPl-mj-tz5">
@@ -101,23 +101,23 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="Q6w-Ul-gl3">
                                 <rect key="frame" x="20" y="72" width="560" height="498"/>
                                 <subviews>
-                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hzj-8k-W5F">
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="hzj-8k-W5F">
                                         <rect key="frame" x="0.0" y="0.0" width="560" height="371"/>
                                     </mapView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dirección: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kyc-57-UVl">
-                                        <rect key="frame" x="0.0" y="393" width="560" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Dirección: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kyc-57-UVl">
+                                        <rect key="frame" x="0.0" y="393" width="560" height="19"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ciudad: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PbO-30-H18">
-                                        <rect key="frame" x="0.0" y="435" width="560" height="21"/>
+                                        <rect key="frame" x="0.0" y="434" width="560" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="País: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XwY-My-at0">
-                                        <rect key="frame" x="0.0" y="478" width="560" height="21"/>
+                                        <rect key="frame" x="0.0" y="477" width="560" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -139,7 +139,11 @@
                                 <action selector="cancel:" destination="xKZ-SW-yoP" id="7ex-GS-Xud"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Guardar" id="57r-g6-IAn"/>
+                        <barButtonItem key="rightBarButtonItem" title="Guardar" id="57r-g6-IAn">
+                            <connections>
+                                <action selector="savePosition:" destination="xKZ-SW-yoP" id="56V-gV-1ZG"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="infoCity" destination="PbO-30-H18" id="C6z-cy-B7X"/>
@@ -178,36 +182,36 @@
                         <viewControllerLayoutGuide type="top" id="XvJ-o1-cPd"/>
                         <viewControllerLayoutGuide type="bottom" id="fjQ-R5-db8"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="pT0-jG-n68" customClass="ViewPosi">
+                    <view key="view" contentMode="scaleToFill" id="pT0-jG-n68">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="YD7-xr-FcV">
                                 <rect key="frame" x="20" y="72" width="560" height="513"/>
                                 <subviews>
-                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zZR-3G-xfd">
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="zZR-3G-xfd">
                                         <rect key="frame" x="0.0" y="0.0" width="560" height="371"/>
                                     </mapView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dirección: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xaS-08-phR">
-                                        <rect key="frame" x="0.0" y="386" width="560" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Dirección: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xaS-08-phR">
+                                        <rect key="frame" x="0.0" y="386" width="560" height="19"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ciudad: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tvb-yN-3YN">
-                                        <rect key="frame" x="0.0" y="422" width="560" height="21"/>
+                                        <rect key="frame" x="0.0" y="420" width="560" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="País: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3fF-c4-xHI">
-                                        <rect key="frame" x="0.0" y="457" width="560" height="21"/>
+                                        <rect key="frame" x="0.0" y="456" width="560" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fecha:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QRY-P2-DID">
-                                        <rect key="frame" x="0.0" y="493" width="560" height="21"/>
+                                        <rect key="frame" x="0.0" y="492" width="560" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -273,7 +277,7 @@
                                 <rect key="frame" x="0.0" y="92" width="600" height="105"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="24p-6X-w5s" id="fbV-gO-ae5">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="104.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="104"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="b5f-Bw-xH8">
@@ -411,14 +415,14 @@
                                 <rect key="frame" x="0.0" y="92" width="600" height="111"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dkA-dK-pYU" id="hUT-XX-vsh">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="110.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="110"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="pT6-e7-mAt">
-                                            <rect key="frame" x="8" y="8" width="584" height="91"/>
+                                            <rect key="frame" x="8" y="8" width="584" height="93"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="SlU-9h-RXn">
-                                                    <rect key="frame" x="0.0" y="0.0" width="584" height="91"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="584" height="93"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fecha: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vjq-39-zS8">
                                                             <rect key="frame" x="0.0" y="0.0" width="584" height="21"/>
@@ -433,13 +437,13 @@
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ciudad: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wt6-fp-pvH">
-                                                            <rect key="frame" x="0.0" y="47" width="584" height="21"/>
+                                                            <rect key="frame" x="0.0" y="48" width="584" height="21"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="País: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xJN-b5-b99">
-                                                            <rect key="frame" x="0.0" y="71" width="584" height="21"/>
+                                                            <rect key="frame" x="0.0" y="72" width="584" height="21"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="highlightedColor"/>
@@ -463,6 +467,7 @@
                                     <outlet property="countryLabel" destination="xJN-b5-b99" id="Rze-ND-y3t"/>
                                     <outlet property="dateLabel" destination="Vjq-39-zS8" id="IHF-Ay-oOW"/>
                                     <outlet property="directionLabel" destination="g4s-35-GOG" id="Yus-dQ-Fr1"/>
+                                    <segue destination="r76-qi-wo1" kind="show" identifier="historyViewPosition" id="SOc-qi-k9F"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -523,4 +528,7 @@
     <resources>
         <image name="Logo" width="390" height="220"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="SOc-qi-k9F"/>
+    </inferredMetricsTieBreakers>
 </document>

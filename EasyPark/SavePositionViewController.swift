@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import CoreData
 
 
 class SavePositionViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
@@ -21,6 +22,13 @@ class SavePositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
     @IBOutlet weak var infoCity: UILabel!
     @IBOutlet weak var infoCountry: UILabel!
  
+    //let position: Position = nil
+    var latitude: CLLocationDegrees = 0.0
+    var longitude: CLLocationDegrees = 0.0
+    var date: NSDate?
+    var direction: String?
+    var city: String?
+    var country: String?
     
     let locationManager = CLLocationManager()
 
@@ -71,15 +79,36 @@ class SavePositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
             
             if let letDirection = placeMark.addressDictionary!["Thoroughfare"] as? String{
                 self.infoDirection.text = "Dirección: "+letDirection
+                self.direction = letDirection
+            }else{
+                self.direction = ""
             }
             if let letCity = placeMark.addressDictionary!["City"] as? String{
                 if let letZip = placeMark.addressDictionary!["ZIP"] as? String{
                     self.infoCity.text = "Ciudad: " + letCity+", "+letZip
+                    self.city = letCity
                 }
+            }else{
+                self.city = ""
             }
             if let letCountry = placeMark.addressDictionary!["Country"] as? String{
                 self.infoCountry.text = "País: " + letCountry
+                self.country = letCountry
+            }else{
+                self.country = ""
             }
+            
+            
+            self.longitude = location!.coordinate.longitude
+            self.latitude = location!.coordinate.latitude
+            
+            let date = NSDate()
+            self.date = date
+            //let formater = NSDateFormatter()
+            //formater.dateFormat = "dd-MM-yyyy HH:mm:ss"
+            //formater.stringFromDate(date)
+            //infoDate.text = "Fecha: " + formater.stringFromDate(date)
+
             
             
             
@@ -87,8 +116,26 @@ class SavePositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
             
         })
         
+    }
+    
+    
+    /// Show an alert with an "Okay" button.
+    func showAlertSavePosition() {
+        let title = NSLocalizedString("Guardar Posición", comment: "")
+        let message = NSLocalizedString("Se ha guardado la posición correctamente", comment: "")
+        let acceptButtonTitle = NSLocalizedString("OK", comment: "")
         
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         
+        // Create the action.
+        let cancelAction = UIAlertAction(title: acceptButtonTitle, style: .Cancel) { action in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
+        
+        // Add the action.
+        alertController.addAction(cancelAction)
+        
+        presentViewController(alertController, animated: true, completion: nil)
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError){
@@ -100,6 +147,9 @@ class SavePositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
     // MARK: - Navigation
     
     @IBAction func cancel(sender: UIBarButtonItem) {
+        infoDirection.text = "Dirección: "
+        infoCity.text = "Ciudad: "
+        infoCountry.text = "País: "
         dismissViewControllerAnimated(true, completion: nil)
     }
     /*
@@ -109,5 +159,33 @@ class SavePositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
         // Pass the selected object to the new view controller.
     }
     */
+    
+    // MARK: - Action
 
+    @IBAction func savePosition(sender: UIBarButtonItem) {
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedContext = appDelegate.managedObjectContext
+        
+        let entity = NSEntityDescription.entityForName("Position", inManagedObjectContext: managedContext)
+        
+        let position = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+        
+        position.setValue(self.longitude, forKey: "longitude")
+        position.setValue(self.latitude, forKey: "latitude")
+        position.setValue(self.city, forKey: "city")
+        position.setValue(self.country, forKey: "country")
+        position.setValue(self.direction, forKey: "direction")
+        position.setValue(self.date, forKey: "date")
+        
+        do {
+            try managedContext.save()
+            showAlertSavePosition()
+            
+        } catch let error as NSError {
+                print("No se pudo guardar \(error), \(error.userInfo)")
+        }
+      
+
+    }
 }

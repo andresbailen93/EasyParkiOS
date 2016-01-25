@@ -7,25 +7,50 @@
 //
 
 import UIKit
+import CoreData
 
 class HistoryTableViewController: UITableViewController {
 
     // MARK: Properties
     
-    var positions = [Position]()
+    //
+    var positions = [NSManagedObject]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.rightBarButtonItem = editButtonItem()
         
-        loadSamplePositions()
+        //loadSamplePositions()
         
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedContext = appDelegate.managedObjectContext
+        
+        
+        
+        let fetchRequest = NSFetchRequest(entityName: "Position")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        
+        
+        do {
+            let results = try managedContext.executeFetchRequest(fetchRequest)
+            positions = results as! [NSManagedObject]
+            
+        } catch let error as NSError {
+            print("No se pudo encontrar nada \(error), \(error.userInfo)")
+        }
+        
+        
     }
 
     // MARK: - Table view data source
@@ -47,15 +72,20 @@ class HistoryTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! HistoryTableViewCell
         let position = positions[indexPath.row]
         
-        cell.cityLabel.text = position.city
-        cell.directionLabel.text = position.direction
-        cell.countryLabel.text = position.country
-        cell.dateLabel.text = "MI FECHA"
         
-
+        cell.cityLabel.text = "Ciudad: " + (position.valueForKey("city") as! String)
+        cell.directionLabel.text? = "Dirección: " + (position.valueForKey("direction") as! String)
+        cell.countryLabel.text = "País: " + (position.valueForKey("country") as! String)
+        
+        let formater = NSDateFormatter()
+        formater.dateFormat = "dd-MM-yyyy HH:mm:ss"
+        let myDate = "Fecha: " + formater.stringFromDate(position.valueForKey("date") as! NSDate)
+        cell.dateLabel.text = myDate
 
         return cell
     }
+    
+    
     
 
     
@@ -69,11 +99,23 @@ class HistoryTableViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
+            
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            let managedContext = appDelegate.managedObjectContext
+            
+            managedContext.deleteObject(positions[indexPath.row])
             positions.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+            
+            do{
+              try managedContext.save()
+            }catch let error as NSError {
+                print("No se pudo borrar \(error), \(error.userInfo)")
+            }
+
+
         }
+
     }
 
     /*
@@ -89,7 +131,7 @@ class HistoryTableViewController: UITableViewController {
         // Return false if you do not want the item to be re-orderable.
         return true
     }
-    */
+
 
     func loadSamplePositions() {
         let date = NSDate()
@@ -101,20 +143,31 @@ class HistoryTableViewController: UITableViewController {
         
         positions += [meal1, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2]
     }
+*/
     
     // MARK: - Navigation
     @IBAction func back(sender: UIBarButtonItem) {
         dismissViewControllerAnimated(true, completion: nil)
+        
     }
  
     
     
-    /*
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
+        let positionDetailViewController = segue.destinationViewController as! ViewPositionViewController
+        
+        if let selectedPositionCell = sender as? HistoryTableViewCell{
+            let indexPath = tableView.indexPathForCell(selectedPositionCell)!
+            let selectedPosition =  positions [indexPath.row]
+            
+            positionDetailViewController.position = selectedPosition
+        }
+        
+        
     }
-    */
+    
 
 }
