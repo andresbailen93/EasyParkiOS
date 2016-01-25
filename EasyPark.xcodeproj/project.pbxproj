@@ -18,7 +18,6 @@
 		4CAEEC4F1C525A95008BEA8A /* ViewPositionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAEEC4E1C525A95008BEA8A /* ViewPositionViewController.swift */; };
 		4CAEEC551C52760E008BEA8A /* ParkTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAEEC541C52760E008BEA8A /* ParkTableViewController.swift */; };
 		4CAEEC571C527635008BEA8A /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAEEC561C527635008BEA8A /* HistoryTableViewController.swift */; };
-		4CAEEC591C5278C0008BEA8A /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAEEC581C5278C0008BEA8A /* Position.swift */; };
 		4CAEEC611C52885C008BEA8A /* ParkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAEEC601C52885C008BEA8A /* ParkTableViewCell.swift */; };
 		4CAEEC631C528BCA008BEA8A /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAEEC621C528BCA008BEA8A /* HistoryTableViewCell.swift */; };
 		4CAEEC651C529840008BEA8A /* ParkZone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAEEC641C529840008BEA8A /* ParkZone.swift */; };
@@ -50,7 +49,6 @@
 		4CAEEC4E1C525A95008BEA8A /* ViewPositionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewPositionViewController.swift; sourceTree = "<group>"; };
 		4CAEEC541C52760E008BEA8A /* ParkTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParkTableViewController.swift; path = ../ParkTableViewController.swift; sourceTree = "<group>"; };
 		4CAEEC561C527635008BEA8A /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
-		4CAEEC581C5278C0008BEA8A /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		4CAEEC601C52885C008BEA8A /* ParkTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParkTableViewCell.swift; sourceTree = "<group>"; };
 		4CAEEC621C528BCA008BEA8A /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
 		4CAEEC641C529840008BEA8A /* ParkZone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParkZone.swift; sourceTree = "<group>"; };
@@ -156,7 +154,6 @@
 				2512B2801C553AD000554CB5 /* Application */,
 				4CAEEC331C5225BD008BEA8A /* Assets.xcassets */,
 				2512B2841C55411D00554CB5 /* Supporting Files */,
-				4CAEEC581C5278C0008BEA8A /* Position.swift */,
 				4CAEEC641C529840008BEA8A /* ParkZone.swift */,
 			);
 			path = EasyPark;
@@ -281,7 +278,6 @@
 				4CAEEC551C52760E008BEA8A /* ParkTableViewController.swift in Sources */,
 				4CAEEC571C527635008BEA8A /* HistoryTableViewController.swift in Sources */,
 				4CAEEC4F1C525A95008BEA8A /* ViewPositionViewController.swift in Sources */,
-				4CAEEC591C5278C0008BEA8A /* Position.swift in Sources */,
 				4CAEEC321C5225BD008BEA8A /* EasyPark.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
