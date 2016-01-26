@@ -150,6 +150,7 @@
                         <outlet property="infoCountry" destination="XwY-My-at0" id="97q-aN-gHe"/>
                         <outlet property="infoDirection" destination="Kyc-57-UVl" id="EDg-NF-lK9"/>
                         <outlet property="mapView" destination="hzj-8k-W5F" id="EIz-qN-Y48"/>
+                        <outlet property="savePositionButton" destination="57r-g6-IAn" id="A6f-D4-4RA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YPe-ph-L7F" userLabel="First Responder" sceneMemberID="firstResponder"/>

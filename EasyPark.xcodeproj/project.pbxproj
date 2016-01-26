@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C7A9FB31C57679B00D31841 /* PositionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7A9FB21C57679B00D31841 /* PositionAction.swift */; };
+		4C8C22031C567E0700846A60 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8C22021C567E0700846A60 /* Position.swift */; };
 		4CAEEC2A1C5225BD008BEA8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAEEC291C5225BD008BEA8A /* AppDelegate.swift */; };
 		4CAEEC2C1C5225BD008BEA8A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAEEC2B1C5225BD008BEA8A /* ViewController.swift */; };
 		4CAEEC2F1C5225BD008BEA8A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CAEEC2D1C5225BD008BEA8A /* Main.storyboard */; };
@@ -34,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C7A9FB21C57679B00D31841 /* PositionAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionAction.swift; sourceTree = "<group>"; };
+		4C8C22021C567E0700846A60 /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Position.swift; path = ../../../Desktop/EasyPark/EasyPark/Position.swift; sourceTree = "<group>"; };
 		4CAEEC261C5225BD008BEA8A /* EasyPark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyPark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CAEEC291C5225BD008BEA8A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CAEEC2B1C5225BD008BEA8A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -75,6 +79,7 @@
 		2512B27F1C553A2000554CB5 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4C7A9FAF1C57669600D31841 /* ViewPosition View */,
 				2512B2811C553AF300554CB5 /* Park View */,
 				2512B2831C5540BF00554CB5 /* SavePosition View */,
 				2512B2821C553B8000554CB5 /* History View */,
@@ -115,7 +120,6 @@
 			isa = PBXGroup;
 			children = (
 				4CAEEC4C1C523EC7008BEA8A /* SavePositionViewController.swift */,
-				4CAEEC4E1C525A95008BEA8A /* ViewPositionViewController.swift */,
 			);
 			name = "SavePosition View";
 			sourceTree = "<group>";
@@ -127,6 +131,24 @@
 				4CAEEC301C5225BD008BEA8A /* EasyPark.xcdatamodeld */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		4C7A9FAF1C57669600D31841 /* ViewPosition View */ = {
+			isa = PBXGroup;
+			children = (
+				4CAEEC4E1C525A95008BEA8A /* ViewPositionViewController.swift */,
+			);
+			name = "ViewPosition View";
+			sourceTree = "<group>";
+		};
+		4C7A9FB01C5766F700D31841 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				4CAEEC641C529840008BEA8A /* ParkZone.swift */,
+				4C8C22021C567E0700846A60 /* Position.swift */,
+				4C7A9FB21C57679B00D31841 /* PositionAction.swift */,
+			);
+			name = Entities;
 			sourceTree = "<group>";
 		};
 		4CAEEC1D1C5225BD008BEA8A = {
@@ -150,11 +172,11 @@
 		4CAEEC281C5225BD008BEA8A /* EasyPark */ = {
 			isa = PBXGroup;
 			children = (
+				4C7A9FB01C5766F700D31841 /* Entities */,
 				2512B27F1C553A2000554CB5 /* View Controllers */,
 				2512B2801C553AD000554CB5 /* Application */,
 				4CAEEC331C5225BD008BEA8A /* Assets.xcassets */,
 				2512B2841C55411D00554CB5 /* Supporting Files */,
-				4CAEEC641C529840008BEA8A /* ParkZone.swift */,
 			);
 			path = EasyPark;
 			sourceTree = "<group>";
@@ -269,6 +291,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C8C22031C567E0700846A60 /* Position.swift in Sources */,
 				4CAEEC611C52885C008BEA8A /* ParkTableViewCell.swift in Sources */,
 				4CAEEC4D1C523EC7008BEA8A /* SavePositionViewController.swift in Sources */,
 				4CAEEC2C1C5225BD008BEA8A /* ViewController.swift in Sources */,
@@ -278,6 +301,7 @@
 				4CAEEC551C52760E008BEA8A /* ParkTableViewController.swift in Sources */,
 				4CAEEC571C527635008BEA8A /* HistoryTableViewController.swift in Sources */,
 				4CAEEC4F1C525A95008BEA8A /* ViewPositionViewController.swift in Sources */,
+				4C7A9FB31C57679B00D31841 /* PositionAction.swift in Sources */,
 				4CAEEC321C5225BD008BEA8A /* EasyPark.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -14,7 +14,8 @@ class HistoryTableViewController: UITableViewController {
     // MARK: Properties
     
     //
-    var positions = [NSManagedObject]()
+    var positions = [Position]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,22 +34,7 @@ class HistoryTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let managedContext = appDelegate.managedObjectContext
-        
-        
-        
-        let fetchRequest = NSFetchRequest(entityName: "Position")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        
-        
-        do {
-            let results = try managedContext.executeFetchRequest(fetchRequest)
-            positions = results as! [NSManagedObject]
-            
-        } catch let error as NSError {
-            print("No se pudo encontrar nada \(error), \(error.userInfo)")
-        }
+            positions = PositionAction.viewAllPositions()!
         
         
     }
@@ -73,13 +59,13 @@ class HistoryTableViewController: UITableViewController {
         let position = positions[indexPath.row]
         
         
-        cell.cityLabel.text = "Ciudad: " + (position.valueForKey("city") as! String)
-        cell.directionLabel.text? = "Dirección: " + (position.valueForKey("direction") as! String)
-        cell.countryLabel.text = "País: " + (position.valueForKey("country") as! String)
+        cell.cityLabel.text = "Ciudad: " + position.city!
+        cell.directionLabel.text? = "Dirección: " + position.direction!
+        cell.countryLabel.text = "País: " + position.country!
         
         let formater = NSDateFormatter()
         formater.dateFormat = "dd-MM-yyyy HH:mm:ss"
-        let myDate = "Fecha: " + formater.stringFromDate(position.valueForKey("date") as! NSDate)
+        let myDate = "Fecha: " + formater.stringFromDate(position.date)
         cell.dateLabel.text = myDate
 
         return cell
@@ -99,21 +85,10 @@ class HistoryTableViewController: UITableViewController {
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            
-            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-            let managedContext = appDelegate.managedObjectContext
-            
-            managedContext.deleteObject(positions[indexPath.row])
+        
+            PositionAction.deletePosition(positions[indexPath.row])
             positions.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-            
-            do{
-              try managedContext.save()
-            }catch let error as NSError {
-                print("No se pudo borrar \(error), \(error.userInfo)")
-            }
-
-
         }
 
     }
@@ -132,17 +107,6 @@ class HistoryTableViewController: UITableViewController {
         return true
     }
 
-
-    func loadSamplePositions() {
-        let date = NSDate()
-        let meal1 = Position(latitude: 36.7145137, longitude: -4.4791725, date: date, direction: "Calle lamargura", city: "Málaga", country: "España")
-
-        let meal2 = Position(latitude: 36.7145, longitude: -4.4795, date: date, direction: "Calle Juanje", city: "Tánger", country: "España")
-        
-        
-        
-        positions += [meal1, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2]
-    }
 */
     
     // MARK: - Navigation

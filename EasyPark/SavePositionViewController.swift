@@ -20,6 +20,7 @@ class SavePositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var infoDirection: UILabel!
     @IBOutlet weak var infoCity: UILabel!
+    @IBOutlet weak var savePositionButton: UIBarButtonItem!
     @IBOutlet weak var infoCountry: UILabel!
  
     //let position: Position = nil
@@ -29,7 +30,7 @@ class SavePositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
     var direction: String?
     var city: String?
     var country: String?
-    
+    var positionSave: Position?
     let locationManager = CLLocationManager()
 
     override func viewDidLoad() {
@@ -45,6 +46,8 @@ class SavePositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
         self.locationManager.startUpdatingLocation()
         
         self.mapView.showsUserLocation = true
+        
+        self.savePositionButton.enabled = false
 
         // Do any additional setup after loading the view.
     }
@@ -57,6 +60,9 @@ class SavePositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
     // MARK: -Location Delegate Methods
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        infoDirection.text = "Dirección: "
+        infoCity.text = "Ciudad: "
+        infoCountry.text = "País: "
         
         let location = locations.last
         
@@ -66,7 +72,6 @@ class SavePositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
         
         self.mapView.setRegion(region, animated: true)
         
-        self.locationManager.stopUpdatingLocation()
         
         let geoCoder = CLGeocoder()
         let locationAddress = CLLocation(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
@@ -104,16 +109,12 @@ class SavePositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
             
             let date = NSDate()
             self.date = date
-            //let formater = NSDateFormatter()
-            //formater.dateFormat = "dd-MM-yyyy HH:mm:ss"
-            //formater.stringFromDate(date)
-            //infoDate.text = "Fecha: " + formater.stringFromDate(date)
 
+
+            self.locationManager.stopUpdatingLocation()
             
-            
-            
-            
-            
+            self.savePositionButton.enabled = true
+
         })
         
     }
@@ -164,28 +165,9 @@ class SavePositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
 
     @IBAction func savePosition(sender: UIBarButtonItem) {
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let managedContext = appDelegate.managedObjectContext
-        
-        let entity = NSEntityDescription.entityForName("Position", inManagedObjectContext: managedContext)
-        
-        let position = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
-        
-        position.setValue(self.longitude, forKey: "longitude")
-        position.setValue(self.latitude, forKey: "latitude")
-        position.setValue(self.city, forKey: "city")
-        position.setValue(self.country, forKey: "country")
-        position.setValue(self.direction, forKey: "direction")
-        position.setValue(self.date, forKey: "date")
-        
-        do {
-            try managedContext.save()
-            showAlertSavePosition()
+        if PositionAction.savePosition(self.direction!, city: self.city!, country: self.country!, latitude: self.latitude, longitude: self.longitude, date: self.date!) {
+                  showAlertSavePosition()
             
-        } catch let error as NSError {
-                print("No se pudo guardar \(error), \(error.userInfo)")
         }
-      
-
     }
 }

@@ -22,41 +22,43 @@ class ViewPositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
     @IBOutlet weak var infoCountry: UILabel!
     @IBOutlet weak var infoDate: UILabel!
     
-    var position: NSManagedObject?
+    var position: Position?
     
     let locationManager = CLLocationManager()
     
     let longitude: CLLocationDegrees = 0.0
     let latitude: CLLocationDegrees = 0.0
+    var backHistory: Bool = true
+    
+    // MARK: - Pruebas
+    //var secondView: ViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let position = position {
-            infoDirection.text = "Dirección: " + (position.valueForKey("direction") as! String)
-            infoCity.text = "Ciudad: " + (position.valueForKey("city") as! String)
-            infoCountry.text = "País: " + (position.valueForKey("country") as! String)
+            
+            backHistory = true
+            
+            infoDirection.text = "Dirección: " + position.direction!
+            infoCity.text = "Ciudad: " + position.city!
+            infoCountry.text = "País: " + position.country!
             
             
             let formater = NSDateFormatter()
             formater.dateFormat = "dd-MM-yyyy HH:mm:ss"
-            let myDate = "Fecha: " + formater.stringFromDate(position.valueForKey("date") as! NSDate)
+            let myDate = "Fecha: " + formater.stringFromDate(position.date)
             infoDate.text = myDate
             self.locationManager.startUpdatingLocation()
+            
+            //secondView = self.storyboard?.instantiateViewControllerWithIdentifier("historyView") as HistoryTableViewController
        
         }else{
-            var positions = [NSManagedObject]()
-            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-            let managedContext = appDelegate.managedObjectContext
             
-            let fetchRequest = NSFetchRequest(entityName: "Position")
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-            fetchRequest.fetchLimit = 1
+            backHistory = false
             
-            do {
-                let results = try managedContext.executeFetchRequest(fetchRequest)
-                positions = results as! [NSManagedObject]
-                if(positions.count == 0){
+            let viewLastPosition = PositionAction.viewLastPosition()
+                if(!viewLastPosition.bool){
                     
                     infoDirection.text = "Dirección: "
                     infoCity.text = "Ciudad: "
@@ -66,24 +68,22 @@ class ViewPositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
                     
                 }else{
                 
-                position = positions[0]
+                position = viewLastPosition.position
                 
-                infoDirection.text = "Dirección: " + (position!.valueForKey("direction") as! String)
-                infoCity.text = "Ciudad: " + (position!.valueForKey("city") as! String)
-                infoCountry.text = "País: " + (position!.valueForKey("country") as! String)
+                infoDirection.text = "Dirección: " + position!.direction!
+                infoCity.text = "Ciudad: " + position!.city!
+                infoCountry.text = "País: " + position!.country!
                 
                 
                 let formater = NSDateFormatter()
                 formater.dateFormat = "dd-MM-yyyy HH:mm:ss"
-                let myDate = "Fecha: " + formater.stringFromDate(position!.valueForKey("date") as! NSDate)
+                let myDate = "Fecha: " + formater.stringFromDate(position!.date)
                 infoDate.text = myDate
                 self.locationManager.startUpdatingLocation()
                 
                 }
                 
-            } catch let error as NSError {
-                print("No se pudo encontrar nada \(error), \(error.userInfo)")
-            }
+
             
             
         }
@@ -113,10 +113,10 @@ class ViewPositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
         
         let point = MKPointAnnotation()
         
-        point.coordinate.latitude = position!.valueForKey("latitude") as! CLLocationDegrees
-        point.coordinate.longitude = position!.valueForKey("longitude") as! CLLocationDegrees
+        point.coordinate.latitude = position!.latitude 
+        point.coordinate.longitude = position!.longitude
  
-        let center = CLLocationCoordinate2D(latitude: position!.valueForKey("latitude") as! CLLocationDegrees, longitude: position!.valueForKey("longitude") as! CLLocationDegrees)
+        let center = CLLocationCoordinate2D(latitude: position!.latitude , longitude: position!.longitude)
         
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         
@@ -139,7 +139,12 @@ class ViewPositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
         infoCity.text = "Ciudad: "
         infoCountry.text = "País: "
         infoDate.text = "Fecha: "
-        dismissViewControllerAnimated(true, completion: nil)
+        
+        if(!backHistory){
+            dismissViewControllerAnimated(true, completion: nil)
+        }else{
+            navigationController?.popViewControllerAnimated(true)
+        }
     }
 
     
