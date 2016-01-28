@@ -32,6 +32,8 @@ class ParkZoneAction{
         
         let url = NSURL(string: urlWebService + cc)
         let task = NSURLSession.sharedSession().dataTaskWithURL(url!) {(data, response, error) in
+            if data != nil{
+
             
             do {
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
@@ -56,6 +58,7 @@ class ParkZoneAction{
                 
             } catch {
                 print("error serializing JSON: \(error)")
+            }
             }
             
         }
@@ -92,7 +95,8 @@ class ParkZoneAction{
             let httpResponse = response as? NSHTTPURLResponse
             print(httpResponse!.statusCode)
             
-            
+            if data != nil{
+
             dataString = NSString(data: data!, encoding: NSUTF8StringEncoding) as! String
             print(dataString)
             
@@ -104,6 +108,7 @@ class ParkZoneAction{
                     tableC.parkZones.removeAll()
                     tableC.showAlertReserved("ERROR al reservar plaza")
                 }
+            }
             }
             
         }
@@ -119,11 +124,14 @@ class ParkZoneAction{
         
         let url = NSURL(string: urlWebService + "countCA")
         let task = NSURLSession.sharedSession().dataTaskWithURL(url!) {(data, response, error) in
+            
+            if data != nil{
             dataString = NSString(data: data!, encoding: NSUTF8StringEncoding) as! String
             
             dispatch_async(dispatch_get_main_queue()) {
                 tableC.ca.numberFree = dataString
                 tableC.tableView.reloadData()
+            }
             }
             
         }
@@ -136,13 +144,15 @@ class ParkZoneAction{
         
         let url = NSURL(string: urlWebService + "countCI")
         let task = NSURLSession.sharedSession().dataTaskWithURL(url!) {(data, response, error) in
+            if data != nil{
+
             dataString = NSString(data: data!, encoding: NSUTF8StringEncoding) as! String
             
             dispatch_async(dispatch_get_main_queue()) {
                 tableC.ci.numberFree = dataString
                 tableC.tableView.reloadData()
             }
-            
+            }
         }
         task.resume()
     }
@@ -154,6 +164,8 @@ class ParkZoneAction{
         let url = NSURL(string: urlWebService + idUser)
         let task = NSURLSession.sharedSession().dataTaskWithURL(url!) {(data, response, error) in
             
+            if data != nil{
+            
             do {
                 let json = try NSJSONSerialization.JSONObjectWithData(data!, options: .AllowFragments)
                 
@@ -164,9 +176,9 @@ class ParkZoneAction{
                 }
                 
             } catch {
-                print("error serializing JSON: \(error)")
+                    print("error serializing JSON: \(error)")
             }
-            
+            }
         }
         task.resume()
     }

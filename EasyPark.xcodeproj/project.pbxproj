@@ -143,6 +143,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		25993BEA1C5A340D002E85EF /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				4C7A9FB21C57679B00D31841 /* PositionAction.swift */,
+				4C75DA5A1C5A212C00748E29 /* ParkZoneAction.swift */,
+			);
+			name = Actions;
+			sourceTree = "<group>";
+		};
 		4C7A9FAF1C57669600D31841 /* ViewPosition View */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,9 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				4CAEEC641C529840008BEA8A /* ParkZone.swift */,
-				4C7A9FB21C57679B00D31841 /* PositionAction.swift */,
 				4C94026D1C58DF5000D46EFF /* ParkZoneFree.swift */,
-				4C75DA5A1C5A212C00748E29 /* ParkZoneAction.swift */,
 				2501EE451C5A2CF50079BF5D /* Position.swift */,
 			);
 			name = Entities;
@@ -184,6 +191,7 @@
 		4CAEEC281C5225BD008BEA8A /* EasyPark */ = {
 			isa = PBXGroup;
 			children = (
+				25993BEA1C5A340D002E85EF /* Actions */,
 				4C7A9FB01C5766F700D31841 /* Entities */,
 				2512B27F1C553A2000554CB5 /* View Controllers */,
 				2512B2801C553AD000554CB5 /* Application */,

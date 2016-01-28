@@ -28,7 +28,9 @@ class PositionAction{
 
     }
     
-    static func savePosition(direction: String,city: String, country: String, latitude: Double, longitude: Double, date: NSDate) ->Bool{
+    static func savePosition(direction: String,city: String, country: String,
+        latitude: Double, longitude: Double, date: NSDate) ->Bool{
+            
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
         
@@ -54,6 +56,7 @@ class PositionAction{
         }
         
     }
+    
     static func viewLastPosition()->(bool: Bool,position: Position?){
         var positions = [Position]()
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate

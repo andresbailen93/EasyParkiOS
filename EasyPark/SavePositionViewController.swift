@@ -36,17 +36,11 @@ class SavePositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
     override func viewDidLoad() {
         super.viewDidLoad()
         self.infoDirection.numberOfLines = 3
-        
         self.locationManager.delegate = self
-        
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        
         self.locationManager.requestWhenInUseAuthorization()
-        
         self.locationManager.startUpdatingLocation()
-        
         self.mapView.showsUserLocation = true
-        
         self.savePositionButton.enabled = false
 
         // Do any additional setup after loading the view.
@@ -65,11 +59,8 @@ class SavePositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
         infoCountry.text = "País: "
         
         let location = locations.last
-        
         let center = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
-        
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        
         self.mapView.setRegion(region, animated: true)
         
         
@@ -101,16 +92,12 @@ class SavePositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
                 self.country = ""
             }
             
-            
             self.longitude = location!.coordinate.longitude
             self.latitude = location!.coordinate.latitude
             
             let date = NSDate()
             self.date = date
-
-
             self.locationManager.stopUpdatingLocation()
-            
             self.savePositionButton.enabled = true
 
         })
