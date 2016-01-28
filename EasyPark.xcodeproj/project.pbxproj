@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2501EE461C5A2CF50079BF5D /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2501EE451C5A2CF50079BF5D /* Position.swift */; };
 		4C75DA5B1C5A212C00748E29 /* ParkZoneAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C75DA5A1C5A212C00748E29 /* ParkZoneAction.swift */; };
 		4C7A9FB31C57679B00D31841 /* PositionAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7A9FB21C57679B00D31841 /* PositionAction.swift */; };
-		4C8C22031C567E0700846A60 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8C22021C567E0700846A60 /* Position.swift */; };
 		4C9402681C58C00100D46EFF /* ParkFreeCCTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9402671C58C00100D46EFF /* ParkFreeCCTableViewController.swift */; };
 		4C94026A1C58C01500D46EFF /* ParkFreeCCTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9402691C58C01500D46EFF /* ParkFreeCCTableViewCell.swift */; };
 		4C94026E1C58DF5000D46EFF /* ParkZoneFree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C94026D1C58DF5000D46EFF /* ParkZoneFree.swift */; };
@@ -40,9 +40,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2501EE451C5A2CF50079BF5D /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		4C75DA5A1C5A212C00748E29 /* ParkZoneAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParkZoneAction.swift; sourceTree = "<group>"; };
 		4C7A9FB21C57679B00D31841 /* PositionAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PositionAction.swift; sourceTree = "<group>"; };
-		4C8C22021C567E0700846A60 /* Position.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Position.swift; path = ../../../Desktop/EasyPark/EasyPark/Position.swift; sourceTree = "<group>"; };
 		4C9402671C58C00100D46EFF /* ParkFreeCCTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParkFreeCCTableViewController.swift; sourceTree = "<group>"; };
 		4C9402691C58C01500D46EFF /* ParkFreeCCTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParkFreeCCTableViewCell.swift; sourceTree = "<group>"; };
 		4C94026D1C58DF5000D46EFF /* ParkZoneFree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParkZoneFree.swift; sourceTree = "<group>"; };
@@ -155,10 +155,10 @@
 			isa = PBXGroup;
 			children = (
 				4CAEEC641C529840008BEA8A /* ParkZone.swift */,
-				4C8C22021C567E0700846A60 /* Position.swift */,
 				4C7A9FB21C57679B00D31841 /* PositionAction.swift */,
 				4C94026D1C58DF5000D46EFF /* ParkZoneFree.swift */,
 				4C75DA5A1C5A212C00748E29 /* ParkZoneAction.swift */,
+				2501EE451C5A2CF50079BF5D /* Position.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -303,7 +303,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C8C22031C567E0700846A60 /* Position.swift in Sources */,
 				4CAEEC611C52885C008BEA8A /* ParkTableViewCell.swift in Sources */,
 				4CAEEC4D1C523EC7008BEA8A /* SavePositionViewController.swift in Sources */,
 				4CAEEC2C1C5225BD008BEA8A /* ViewController.swift in Sources */,
@@ -318,6 +317,7 @@
 				4C94026A1C58C01500D46EFF /* ParkFreeCCTableViewCell.swift in Sources */,
 				4CAEEC4F1C525A95008BEA8A /* ViewPositionViewController.swift in Sources */,
 				4C7A9FB31C57679B00D31841 /* PositionAction.swift in Sources */,
+				2501EE461C5A2CF50079BF5D /* Position.swift in Sources */,
 				4CAEEC321C5225BD008BEA8A /* EasyPark.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

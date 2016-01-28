@@ -79,9 +79,7 @@ class SavePositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
             
             var placeMark: CLPlacemark!
             placeMark = placemarks?[0]
-            
-            print(placeMark.addressDictionary)
-            
+                        
             if let letDirection = placeMark.addressDictionary!["Thoroughfare"] as? String{
                 self.infoDirection.text = "Dirección: "+letDirection
                 self.direction = letDirection
