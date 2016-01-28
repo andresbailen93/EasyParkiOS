@@ -15,18 +15,21 @@ class ParkZone{
     
     // MARK: Properties
 
-    var floor: String?
-    var section: String?
-    var number: String?
-    var photo: UIImage?
+    var name: String!
+    var floor: String!
+    var section: String!
+    var number: String!
+    var photo: UIImage!
+    var id_parkZone: Int!
     
     
-    init(floor: String?, section:String?, number:String?, photo: String?){
-        let filledStarImage = UIImage(named: photo!)
+    init(name: String!, floor: String!, section:String!, number:String!, photo: String!, id_parkZone: Int!){
+        self.name = name
         self.floor = floor
         self.section = section
         self.number = number
-        self.photo = filledStarImage
+        self.photo = UIImage(named: photo!)
+        self.id_parkZone = id_parkZone
         
     }
     

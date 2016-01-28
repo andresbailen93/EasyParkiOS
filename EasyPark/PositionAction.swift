@@ -100,5 +100,14 @@ class PositionAction{
         
     }
     
+    static func getDateFormatted(positionDate: NSDate) ->String{
+        let formater = NSDateFormatter()
+        formater.dateFormat = "dd-MM-yyyy HH:mm:ss"
+        let myDate = "Fecha: " + formater.stringFromDate(positionDate)
+        return myDate
+
+        
+    }
+    
     
 }

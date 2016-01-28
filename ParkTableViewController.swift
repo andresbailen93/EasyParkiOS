@@ -13,16 +13,16 @@ class ParkTableViewController: UITableViewController {
     // MARK: Properties
 
     var parkZones = [ParkZone]()
+    var parkZoneFree: ParkZoneFree?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-        loadSamplePositions()
+        
+        if let parkZoneFree = parkZoneFree {
+            self.parkZoneFree = parkZoneFree
+            ParkZoneAction.loadCC(self, nameCC: parkZoneFree.nombre!)
+            
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,6 +47,7 @@ class ParkTableViewController: UITableViewController {
         let cellIdentifier = "ParkTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ParkTableViewCell
 
+        
         let parkZone = parkZones[indexPath.row]
         
         cell.floorLabel.text = parkZone.floor
@@ -56,64 +57,49 @@ class ParkTableViewController: UITableViewController {
 
         return cell
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
     
-    func loadSamplePositions() {
-        let meal1 = ParkZone(floor: "1", section: "3", number: "9", photo: "carrefour")
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let parkZone = parkZones[indexPath.row]
+            ParkZoneAction.putBooking(self,parkZone: parkZone)
         
-        let meal2 = ParkZone(floor: "3", section: "3", number: "10", photo: "corte")
-        
-        
-        
-        parkZones += [meal1, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2, meal2]
     }
-
     
+    // MARK: -Alert
+ 
+   /// Show an alert with an "Okay" button.
+    func showAlertReserved(text: String) {
+        var alert: UIAlertActionStyle
+        let title = NSLocalizedString("Reservar plaza", comment: "")
+        let message = NSLocalizedString(text, comment: "")
+        let acceptButtonTitle = NSLocalizedString("OK", comment: "")
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        var cancelAction: UIAlertAction
+        // Create the action.
+        if text.containsString("ERROR"){
+            alert = .Destructive
+            
+            cancelAction = UIAlertAction(title: acceptButtonTitle, style: alert) { action in
+               ParkZoneAction.loadCC(self,nameCC: (self.parkZoneFree?.nombre)!)
+            }
+           
+            
+        }else{
+            alert = .Default
+            cancelAction = UIAlertAction(title: acceptButtonTitle, style: alert) { action in
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
+            
+        }
+        
+        alertController.addAction(cancelAction)
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+   
     // MARK: - Navigation
 
     @IBAction func back(sender: UIBarButtonItem) {
-        dismissViewControllerAnimated(true, completion: nil)
+        navigationController?.popViewControllerAnimated(true)
     }
-    /*
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

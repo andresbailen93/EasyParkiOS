@@ -17,9 +17,16 @@ class ParkTableViewCell: UITableViewCell {
     @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var photo: UIImageView!
     
+    @IBOutlet weak var floorText: UITextField!
+    @IBOutlet weak var sectionText: UITextField!
+    @IBOutlet weak var numberText: UITextField!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        floorText.enabled = false
+        sectionText.enabled = false
+        numberText.enabled = false
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

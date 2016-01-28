@@ -23,6 +23,7 @@ class ViewPositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
     @IBOutlet weak var infoDate: UILabel!
     
     var position: Position?
+    var myRoute : MKRoute?
     
     let locationManager = CLLocationManager()
     
@@ -45,13 +46,11 @@ class ViewPositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
             infoCountry.text = "País: " + position.country!
             
             
-            let formater = NSDateFormatter()
+            /*let formater = NSDateFormatter()
             formater.dateFormat = "dd-MM-yyyy HH:mm:ss"
-            let myDate = "Fecha: " + formater.stringFromDate(position.date)
-            infoDate.text = myDate
+            let myDate = "Fecha: " + formater.stringFromDate(position.date)*/
+            infoDate.text = PositionAction.getDateFormatted(position.date) // myDate
             self.locationManager.startUpdatingLocation()
-            
-            //secondView = self.storyboard?.instantiateViewControllerWithIdentifier("historyView") as HistoryTableViewController
        
         }else{
             
@@ -67,25 +66,22 @@ class ViewPositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
                     
                     
                 }else{
-                
+                    
                 position = viewLastPosition.position
+                
                 
                 infoDirection.text = "Dirección: " + position!.direction!
                 infoCity.text = "Ciudad: " + position!.city!
                 infoCountry.text = "País: " + position!.country!
                 
                 
-                let formater = NSDateFormatter()
+                /*let formater = NSDateFormatter()
                 formater.dateFormat = "dd-MM-yyyy HH:mm:ss"
-                let myDate = "Fecha: " + formater.stringFromDate(position!.date)
-                infoDate.text = myDate
+                let myDate = "Fecha: " + formater.stringFromDate(position!.date)*/
+                infoDate.text = PositionAction.getDateFormatted(position!.date) // myDate
                 self.locationManager.startUpdatingLocation()
                 
                 }
-                
-
-            
-            
         }
         
         self.infoDirection.numberOfLines = 3
@@ -110,22 +106,54 @@ class ViewPositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
     // MARK: -Location Delegate Methods
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location = locations.last
         
-        let point = MKPointAnnotation()
+        let point2 = MKPointAnnotation()
+        point2.coordinate = CLLocationCoordinate2DMake(position!.latitude , position!.longitude)
+        mapView.addAnnotation(point2)
+
+        if !backHistory{
+            let point1 = MKPointAnnotation()
+            point1.coordinate = CLLocationCoordinate2DMake(location!.coordinate.latitude, location!.coordinate.longitude)
+            mapView.delegate = self
         
-        point.coordinate.latitude = position!.latitude 
-        point.coordinate.longitude = position!.longitude
+            let directionsRequest = MKDirectionsRequest()
+            let markPoint1 = MKPlacemark(coordinate: CLLocationCoordinate2DMake(point1.coordinate.latitude, point1.coordinate.longitude), addressDictionary: nil)
+            let markPoint2 = MKPlacemark(coordinate: CLLocationCoordinate2DMake(point2.coordinate.latitude, point2.coordinate.longitude), addressDictionary: nil)
+        
+        
+            directionsRequest.source = MKMapItem(placemark: markPoint1)
+            directionsRequest.destination = MKMapItem(placemark: markPoint2)
+            directionsRequest.transportType = MKDirectionsTransportType.Walking
+
+            let directions = MKDirections(request: directionsRequest)
+            directions.calculateDirectionsWithCompletionHandler { [unowned self] response, error in
+                guard let unwrappedResponse = response else { return }
+            
+                for route in unwrappedResponse.routes {
+                    self.mapView.addOverlay(route.polyline)
+                    self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
+                }
+            }
+        }
  
         let center = CLLocationCoordinate2D(latitude: position!.latitude , longitude: position!.longitude)
         
-        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        
-        self.mapView.addAnnotation(point)
+        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
         
         self.mapView.setRegion(region, animated: true)
         
         self.locationManager.stopUpdatingLocation()
  
+    }
+    
+    
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+        
+        let myLineRenderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
+        myLineRenderer.strokeColor = UIColor.redColor()
+        myLineRenderer.lineWidth = 3
+        return myLineRenderer
     }
     
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError){
@@ -146,17 +174,5 @@ class ViewPositionViewController: UIViewController, MKMapViewDelegate, CLLocatio
             navigationController?.popViewControllerAnimated(true)
         }
     }
-
     
-    
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-        
-    
-    }
-    
-
 }
